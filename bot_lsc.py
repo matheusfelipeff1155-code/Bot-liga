@@ -1,3 +1,4 @@
+import asyncio
 import os
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -265,7 +266,7 @@ async def setup_suporte(interaction: discord.Interaction):
         return
     embed = discord.Embed(title="🎧 SUPORTE - LIGA SUPREMO", description="Precisa de ajuda?\n\nClique no botão abaixo para abrir um ticket e falar com a staff.", color=0x2b2d31)
     await interaction.response.send_message(embed=embed, view=TicketView())
-    await interaction.channel.send("Painel criado! Agora testa o botão acima.",
+    await interaction.channel.send("Painel criado! Agora testa o botão acima.")
 
 # ===== FIM TICKET =====
 bot.run(TOKEN)
