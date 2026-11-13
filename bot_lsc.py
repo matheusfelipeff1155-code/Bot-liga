@@ -49,7 +49,7 @@ async def on_ready():
     except Exception as e:
         print(e)
 
-@bot.event
+
 # ---------- VIEWS PERSISTENTES (pra botão funcionar mesmo depois de reiniciar) ----------
 
 class NickModal(discord.ui.Modal, title="Definir meu Nick"):
