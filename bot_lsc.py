@@ -244,8 +244,8 @@ class TicketView(discord.ui.View):
         categoria = discord.utils.get(guild.categories, name="🎫 TICKETS")
         canal = await guild.create_text_channel(nome, overwrites=overwrites, category=categoria)
             
-        await canal.send(f"{user.mention} Ticket criado! Descreva seu problema que a staff vai te atender.", view=FecharView())
-        await interaction.response.send_message(f"Ticket criado: {canal.mention}", ephemeral=True)
+    await canal.send(f"{user.mention} Ticket criado! Descreva seu problema que a staff vai te atender.", view=FecharView())
+    await interaction.response.send_message(f"Ticket criado: {canal.mention}", ephemeral=True)
 
 class FecharView(discord.ui.View):
     def __init__(self):
