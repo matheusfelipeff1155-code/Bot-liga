@@ -60,24 +60,24 @@ class NickModal(discord.ui.Modal, title="Definir meu Nick"):
         member = interaction.user
         guild = interaction.guild
         if guild is None:
-            await interaction.response.send_message("Usa esse botão dentro do servidor, não no privado!", ephemeral=True)
-            return
-        # 1. Muda o nome no Discord
-        try:
+        guild = bot.guilds[0]
+        member = guild.get_member(interaction.user.id)
+            # 1. Muda o nome no Discord
+            try:
             await member.edit(nick=nick)
         except:
             pass
 
-        # 2. Manda boas-vindas no #boas-vindas
-        canal = discord.utils.get(guild.text_channels, name="boas-vindas")
-        if canal:
+            # 2. Manda boas-vindas no #boas-vindas
+            canal = discord.utils.get(guild.text_channels, name="boas-vindas")
+            if canal:
             embed = discord.Embed(
                 description=f"🎉 **NOVO COMANDANTE NA LIGA!**\n\n{member.mention} acabou de entrar para a Liga Supremo Comando! Nick no Call of War: {nick}\n\nDeem boas-vindas para ele! ⚔️",
                 color=0xFFD700
             )
             await canal.send(embed=embed)
 
-        await interaction.response.send_message(f"Pronto! Seu nick foi definido como **{nick}** ✅", ephemeral=True)
+            await interaction.response.send_message(f"Pronto! Seu nick foi definido como **{nick}** ✅", ephemeral=True)
 
 class DefinirNickView(discord.ui.View):
     def __init__(self):
