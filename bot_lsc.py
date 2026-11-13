@@ -222,5 +222,50 @@ async def tabela(interaction: discord.Interaction):
         texto += f"**{i}º** {e['equipe']} - {e.get('pontos',0)} pts | {e.get('vitorias',0)} vitórias | Líder: {e.get('nick_cow')}\n"
     embed = discord.Embed(title="🏆 TABELA - LIGA SUPREMO COMANDO", description=texto, color=0xD4AF37)
     await interaction.response.send_message(embed=embed)
+# ===== SISTEMA DE TICKET =====
+class TicketView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
 
+    @discord.ui.button(label="🎫 Abrir Ticket", style=discord.ButtonStyle.primary, custom_id="abrir_ticket")
+    async def abrir(self, interaction: discord.Interaction, button: discord.ui.Button):
+        guild = interaction.guild
+        user = interaction.user
+        nome = f"ticket-{user.name.lower().replace(' ', '-')}"
+        canal_existente = discord.utils.get(guild.text_channels, name=nome)
+        if canal_existente:
+            await interaction.response.send_message(f"Você já tem um ticket aberto: {canal_existente.mention}", ephemeral=True)
+            return
+        overwrites = {
+            guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            user: discord.PermissionOverwrite(read_messages=True, send_messages=True),
+            guild.me: discord.PermissionOverwrite(read_messages=True, send_messages=True)
+        }
+        canal = await guild.create_text_channel(nome, overwrites=overwrites)
+        await canal.send(f"{user.mention} Ticket criado! Descreva seu problema que a staff vai te atender.", view=FecharView())
+        await interaction.response.send_message(f"Ticket criado: {canal.mention}", ephemeral=True)
+
+class FecharView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(label="🔒 Fechar Ticket", style=discord.ButtonStyle.danger, custom_id="fechar_ticket")
+    async def fechar(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Fechando ticket em 5 segundos...", ephemeral=True)
+        await asyncio.sleep(5)
+        await interaction.channel.delete()
+
+bot.add_view(TicketView())
+bot.add_view(FecharView())
+
+@bot.tree.command(name="setup_suporte", description="Enviar painel de suporte")
+async def setup_suporte(interaction: discord.Interaction):
+    if not interaction.user.guild_permissions.administrator:
+        await interaction.response.send_message("Só admin pode usar isso.", ephemeral=True)
+        return
+    embed = discord.Embed(title="🎧 SUPORTE - LIGA SUPREMO", description="Precisa de ajuda?\n\nClique no botão abaixo para abrir um ticket e falar com a staff.", color=0x2b2d31)
+    await interaction.response.send_message(embed=embed, view=TicketView())
+    await interaction.channel.send("Painel criado! Agora testa o botão acima.",
+
+# ===== FIM TICKET =====
 bot.run(TOKEN)
