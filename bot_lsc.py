@@ -53,17 +53,10 @@ async def on_ready():
 async def on_member_join(member):
     if member.bot:
         return
-    guild = member.guild
-    canal = discord.utils.get(guild.text_channels, name="boas-vindas") or guild.system_channel
-    if not canal:
-        return
-
-    nome_topico = f"{member.name}-{member.id}"
     try:
-        thread = await canal.create_thread(name=nome_topico, type=discord.ChannelType.private_thread, auto_archive_duration=60)
-        await thread.add_user(member)
+        thread = await member.create_dm()
     except:
-        thread = canal
+        return
 
     embed = discord.Embed(description=f"Bem-vindo(a) {member.mention}! Por favor, digite seu ID do Call of War para registro.", color=0xFF0000)
     await thread.send(embed=embed)
