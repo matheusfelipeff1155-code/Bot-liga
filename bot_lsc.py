@@ -1,3 +1,17 @@
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot online!")
+    def log_message(self, *args):
+        pass
+def keep_alive():
+    port = int(os.environ.get("PORT", 10000))
+    HTTPServer(("0.0.0.0", port), Handler).serve_forever()
+threading.Thread(target=keep_alive, daemon=True).start()
+
 import discord
 from discord.ext import commands
 from discord import app_commands
