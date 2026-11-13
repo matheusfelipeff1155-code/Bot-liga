@@ -50,80 +50,85 @@ async def on_ready():
         print(e)
 
 @bot.event
+# ---------- VIEWS PERSISTENTES (pra botão funcionar mesmo depois de reiniciar) ----------
+
+class NickModal(discord.ui.Modal, title="Definir meu Nick"):
+    nick = discord.ui.TextInput(label="Seu nick no Call of War", placeholder="Digite seu nick igual do jogo", max_length=32)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        nick = self.nick.value.strip()
+        member = interaction.user
+        guild = interaction.guild
+
+        # 1. Muda o nome no Discord
+        try:
+            await member.edit(nick=nick)
+        except:
+            pass
+
+        # 2. Manda boas-vindas no #boas-vindas
+        canal = discord.utils.get(guild.text_channels, name="boas-vindas")
+        if canal:
+            embed = discord.Embed(
+                description=f"🎉 **NOVO COMANDANTE NA LIGA!**\n\n{member.mention} acabou de entrar para a Liga Supremo Comando! Nick no Call of War: {nick}\n\nDeem boas-vindas para ele! ⚔️",
+                color=0xFFD700
+            )
+            await canal.send(embed=embed)
+
+        await interaction.response.send_message(f"Pronto! Seu nick foi definido como **{nick}** ✅", ephemeral=True)
+
+class DefinirNickView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(label="✏️ Definir meu Nick", style=discord.ButtonStyle.primary, custom_id="definir_nick")
+    async def definir(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_modal(NickModal())
+
+class RegrasView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(label="✅ Li e Concordo", style=discord.ButtonStyle.success, custom_id="li_e_concordo")
+    async def concordo(self, interaction: discord.Interaction, button: discord.ui.Button):
+        cargo = discord.utils.get(interaction.guild.roles, name="Registrado")
+        if not cargo:
+            await interaction.response.send_message("Cargo 'Registrado' não encontrado. Fala com um ADM!", ephemeral=True)
+            return
+        await interaction.user.add_roles(cargo)
+        await interaction.response.send_message("Bem-vindo à Liga! Você aceitou as regras e ganhou o cargo **Registrado** ✅", ephemeral=True)
+
+@bot.event
+async def on_ready():
+    # Faz os botões antigos voltarem a funcionar depois do restart
+    bot.add_view(DefinirNickView())
+    bot.add_view(RegrasView())
+    print(f"Bot online como {bot.user}")
+
+# ---------- 1. PV QUANDO ENTRA ----------
+@bot.event
 async def on_member_join(member):
     if member.bot:
         return
     try:
-        thread = await member.create_dm()
+        embed = discord.Embed(
+            title="👋 Bem-vindo à Liga Supremo Comando!",
+            description="Antes de entrar, qual seu nick no Call of War? Clique no botão abaixo e digite seu nick. Seu nome aqui no Discord vai mudar automaticamente.",
+            color=0xFFD700
+        )
+        await member.send(embed=embed, view=DefinirNickView())
     except:
         return
 
-    embed = discord.Embed(description=f"Bem-vindo(a) {member.mention}! Por favor, digite seu ID do Call of War para registro.", color=0xFF0000)
-    await thread.send(embed=embed)
-
-    def check(m):
-        return m.author == member and m.channel == thread
-
-    try:
-        # 1. PEDE ID
-        msg = await bot.wait_for("message", check=check, timeout=86400)
-        id_cow = msg.content.strip()
-        if not id_cow.isdigit():
-            await thread.send("❌ ID inválido. Tem que ser só números. Digite novamente:")
-            msg = await bot.wait_for("message", check=check, timeout=86400)
-            id_cow = msg.content.strip()
-
-        # 2. PEDE NICK
-        await thread.send(f"✅ ID **{id_cow}** salvo! Agora digite seu **nick no Call of War**:")
-        msg2 = await bot.wait_for("message", check=check, timeout=86400)
-        nick_cow = msg2.content.strip()
-
-        # 3. PEDE NÍVEL
-        await thread.send(f"✅ Nick **{nick_cow}** salvo! Agora digite seu **nível** no Call of War:")
-        msg3 = await bot.wait_for("message", check=check, timeout=86400)
-        nivel = msg3.content.strip()
-
-        # SALVA TUDO
-        perfis = carregar(ARQUIVO_PERFIS)
-        perfis[str(member.id)] = {
-            "discord_nome": str(member),
-            "discord_id": str(member.id),
-            "id_cow": id_cow,
-            "nick_cow": nick_cow,
-            "nivel": nivel,
-            "avatar": str(member.display_avatar.url),
-            "conta_criada_em": member.created_at.strftime("%d/%m/%Y"),
-            "entrou_no_servidor_em": datetime.datetime.now().strftime("%d/%m/%Y"),
-            "cadastrado_em": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
-            "verificado": True
-        }
-        salvar(ARQUIVO_PERFIS, perfis)
-
-        cargo = discord.utils.get(guild.roles, name="Registrado")
-        if cargo:
-            try:
-                await member.add_roles(cargo)
-            except:
-                pass
-
-        embed2 = discord.Embed(title="✅ REGISTRO CONCLUÍDO!", color=0x00FF88)
-        embed2.set_thumbnail(url=str(member.display_avatar.url))
-        embed2.add_field(name="🎮 Nick CoW", value=nick_cow, inline=True)
-        embed2.add_field(name="🆔 ID CoW", value=id_cow, inline=True)
-        embed2.add_field(name="⭐ Nível", value=nivel, inline=True)
-        embed2.add_field(name="💬 Discord", value=member.mention, inline=True)
-        embed2.add_field(name="📋 Próximo passo", value="Use `/inscrever` para criar equipe ou `/entrar-equipe` para entrar em uma!", inline=False)
-        await thread.send(embed=embed2)
-        await asyncio.sleep(10)
-        try:
-            await thread.edit(archived=True, locked=True)
-        except:
-            pass
-
-    except asyncio.TimeoutError:
-        await thread.send(f"⏰ {member.mention} Tempo esgotado. Use `/registrar-id` para tentar de novo.")
-    except Exception as e:
-        print(e)
+# ---------- 3. COMANDO PRA POSTAR REGRAS DE NOVO ----------
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def postar_regras(ctx):
+    embed = discord.Embed(
+        description="Ao clicar em Li e Concordo, você aceita todas as regras. Quebra de regra = punição.",
+        color=0xFFD700
+    )
+    await ctx.send(embed=embed, view=RegrasView())
 
 @bot.tree.command(name="registrar-id", description="Registrar ID manualmente se perdeu o tópico")
 @app_commands.describe(id_cow="Seu ID numérico", nick="Seu nick no CoW", nivel="Seu nível")
