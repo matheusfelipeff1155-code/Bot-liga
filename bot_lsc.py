@@ -60,8 +60,8 @@ class NickModal(discord.ui.Modal, title="Definir meu Nick"):
         member = interaction.user
         guild = interaction.guild
         if guild is None:
-        guild = bot.guilds[0]
-        member = guild.get_member(interaction.user.id)
+            guild = bot.guilds[0]
+            member = guild.get_member(interaction.user.id)
             # 1. Muda o nome no Discord
             try:
             await member.edit(nick=nick)
