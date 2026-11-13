@@ -256,8 +256,7 @@ class FecharView(discord.ui.View):
         await asyncio.sleep(5)
         await interaction.channel.delete()
 
-bot.add_view(TicketView())
-bot.add_view(FecharView())
+
 
 @bot.tree.command(name="setup_suporte", description="Enviar painel de suporte")
 async def setup_suporte(interaction: discord.Interaction):
