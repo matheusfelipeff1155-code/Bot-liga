@@ -59,7 +59,9 @@ class NickModal(discord.ui.Modal, title="Definir meu Nick"):
         nick = self.nick.value.strip()
         member = interaction.user
         guild = interaction.guild
-
+        if guild is None:
+            await interaction.response.send_message("Usa esse botão dentro do servidor, não no privado!", ephemeral=True)
+            return
         # 1. Muda o nome no Discord
         try:
             await member.edit(nick=nick)
