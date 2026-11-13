@@ -242,7 +242,8 @@ class TicketView(discord.ui.View):
             user: discord.PermissionOverwrite(read_messages=True, send_messages=True),
             guild.me: discord.PermissionOverwrite(read_messages=True, send_messages=True)
         }
-        canal = await guild.create_text_channel(nome, overwrites=overwrites)
+                categoria = discord.utils.get(guild.categories, name="🎫 TICKETS")
+                canal = await guild.create_text_channel(nome, overwrites=overwrites, category=categoria)
         await canal.send(f"{user.mention} Ticket criado! Descreva seu problema que a staff vai te atender.", view=FecharView())
         await interaction.response.send_message(f"Ticket criado: {canal.mention}", ephemeral=True)
 
