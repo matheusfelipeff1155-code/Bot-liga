@@ -102,10 +102,10 @@ class RegrasView(discord.ui.View):
         bot.add_view(DefinirNickView())
         bot.add_view(RegrasView())
         try:
-        synced = await bot.tree.sync()
-        print(f"Sincronizado {len(synced)} comandos")
+            synced = await bot.tree.sync()
+            print(f"Sincronizado {len(synced)} comandos")
     except Exception as e:
-        print(f"Erro sync: {e}")
+            print(f"Erro sync: {e}")
         print(f"Bot online como {bot.user}")
 
 # ---------- 1. PV QUANDO ENTRA ----------
