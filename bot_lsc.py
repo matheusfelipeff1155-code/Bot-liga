@@ -70,12 +70,12 @@ class NickModal(discord.ui.Modal, title="Definir meu Nick"):
 
             # 2. Manda boas-vindas no #boas-vindas
             canal = discord.utils.get(guild.text_channels, name="boas-vindas")
-            if canal:
-            embed = discord.Embed(
-                description=f"🎉 **NOVO COMANDANTE NA LIGA!**\n\n{member.mention} acabou de entrar para a Liga Supremo Comando! Nick no Call of War: {nick}\n\nDeem boas-vindas para ele! ⚔️",
-                color=0xFFD700
-            )
-            await canal.send(embed=embed)
+                if canal:
+                embed = discord.Embed(
+                    description=f"🎉 **NOVO COMANDANTE NA LIGA!**\n\n{member.mention} acabou de entrar para a Liga Supremo Comando! Nick no Call of War: {nick}\n\nDeem boas-vindas para ele! ⚔️",
+                    color=0xFFD700
+                )
+                await canal.send(embed=embed)
 
             await interaction.response.send_message(f"Pronto! Seu nick foi definido como **{nick}** ✅", ephemeral=True)
 
