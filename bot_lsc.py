@@ -55,7 +55,7 @@ async def on_ready():
 class NickModal(discord.ui.Modal, title="Definir meu Nick"):
     nick = discord.ui.TextInput(label="Seu nick no Call of War", placeholder="Digite seu nick igual do jogo", max_length=32)
 
-        async def on_submit(self, interaction: discord.Interaction):
+    async def on_submit(self, interaction: discord.Interaction):
         nick = self.nick.value.strip()
         member = interaction.user
         guild = interaction.guild
