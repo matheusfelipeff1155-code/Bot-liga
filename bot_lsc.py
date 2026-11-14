@@ -96,7 +96,7 @@ class RegrasView(discord.ui.View):
         await interaction.user.add_roles(cargo)
         await interaction.response.send_message("Bem-vindo à Liga! Você aceitou as regras e ganhou o cargo **Registrado** ✅", ephemeral=True)
 
-@bot.event
+    @bot.event
     async def on_ready():
     # Faz os botões antigos voltarem a funcionar
     bot.add_view(DefinirNickView())
