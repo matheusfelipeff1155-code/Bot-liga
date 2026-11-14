@@ -101,11 +101,8 @@ class RegrasView(discord.ui.View):
         # Faz os botões antigos voltarem a funcionar
         bot.add_view(DefinirNickView())
         bot.add_view(RegrasView())
-        try:
-            synced = await bot.tree.sync()
-            print(f"Sincronizado {len(synced)} comandos")
-    except Exception as e:
-            print(f"Erro sync: {e}")
+        synced = await bot.tree.sync()
+        print(f"Sincronizado {len(synced)} comandos")
         print(f"Bot online como {bot.user}")
 
 # ---------- 1. PV QUANDO ENTRA ----------
