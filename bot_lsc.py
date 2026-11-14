@@ -55,25 +55,25 @@ async def on_ready():
 class NickModal(discord.ui.Modal, title="Definir meu Nick"):
     nick = discord.ui.TextInput(label="Seu nick no Call of War", placeholder="Digite seu nick igual do jogo", max_length=32)
 
-    async def on_submit(self, interaction: discord.Interaction):
+        async def on_submit(self, interaction: discord.Interaction):
         nick = self.nick.value.strip()
         member = interaction.user
         guild = interaction.guild
         if guild is None:
             guild = bot.guilds[0]
             member = guild.get_member(interaction.user.id)
-            # 1. Muda o nome no Discord
+        await interaction.response.send_message(f"✅ Nick definido como **{nick}**!", ephemeral=True)
         try:
             await member.edit(nick=nick)
         except:
             pass
-
-            # 2. Manda boas-vindas no #boas-vindas
-            canal = discord.utils.get(guild.text_channels, name="⚔️・comandos-do-bot")
-            embed = discord.Embed(description=f"🎉 **NOVO COMANDANTE...**", color=0xFFD700)
-            if canal: await canal.send(embed=embed)
-
-            await interaction.response.send_message(f"Pronto! Seu nick foi definido como **{nick}** ✅", ephemeral=True)
+        try:
+            canal = discord.utils.get(guild.text_channels, name="boas-vindas")
+            if canal:
+                embed = discord.Embed(description=f"🎉 Bem-vindo {member.mention}!", color=0xFFD700)
+                await canal.send(embed=embed)
+        except:
+            pass
 
 class DefinirNickView(discord.ui.View):
     def __init__(self):
