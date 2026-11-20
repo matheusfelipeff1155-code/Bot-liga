@@ -267,4 +267,135 @@ async def setup_suporte(interaction: discord.Interaction):
     await interaction.channel.send("Painel criado! Agora testa o botão acima.")
 
 # ===== FIM TICKET =====
+import asyncio, random
+
+# ===== SISTEMA DE DRAFT SNAKE =====
+PAISES_POOL = [
+    {"nome": "Alemanha", "bandeira": "🇩🇪", "doutrina": "🛡️ Eixo", "eco": "Forte"},
+    {"nome": "EUA", "bandeira": "🇺🇸", "doutrina": "⚔️ Aliados", "eco": "Muito Forte"},
+    {"nome": "URSS", "bandeira": "🇷🇺", "doutrina": "☭ Comintern", "eco": "Médio"},
+    {"nome": "Reino Unido", "bandeira": "🇬🇧", "doutrina": "⚔️ Aliados", "eco": "Forte"},
+    {"nome": "Japão", "bandeira": "🇯🇵", "doutrina": "🛡️ Eixo", "eco": "Médio"},
+    {"nome": "França", "bandeira": "🇫🇷", "doutrina": "⚔️ Aliados", "eco": "Médio"},
+    {"nome": "Itália", "bandeira": "🇮🇹", "doutrina": "🛡️ Eixo", "eco": "Fraco"},
+    {"nome": "China", "bandeira": "🇨🇳", "doutrina": "☭ Comintern", "eco": "Fraco"},
+]
+
+drafts = {}
+
+def ordem_snake(qtd_picks):
+    ordem = []
+    rodada = 0
+    while len(ordem) < qtd_picks:
+        if rodada % 2 == 0:
+            ordem += [0, 1, 1, 0] # ABBA
+        else:
+            ordem += [1, 0, 0, 1] # BAAB - continua a serpente
+        rodada += 1
+    return ordem[:qtd_picks]
+
+class DraftSelect(discord.ui.Select):
+    def __init__(self, draft_id):
+        self.draft_id = draft_id
+        d = drafts[draft_id]
+        options = []
+        for p in d["pool"]:
+            options.append(discord.SelectOption(label=f"{p['bandeira']} {p['nome']}", description=f"{p['doutrina']} | Eco: {p['eco']}", value=p["nome"]))
+        super().__init__(placeholder="Escolha o país do seu time...", options=options, min_values=1, max_values=1)
+
+    async def callback(self, interaction: discord.Interaction):
+        d = drafts.get(self.draft_id)
+        if not d:
+            await interaction.response.send_message("Draft encerrado.", ephemeral=True)
+            return
+        
+        time_da_vez = d["ordem"][d["turno"]]
+        capitao_id = d["capitaes"][time_da_vez]
+        
+        # TRAVA DE PERMISSÃO - Anti-Troll
+        if interaction.user.id != capitao_id:
+            await interaction.response.send_message("❌ Não é a sua vez de escolher! Só o Capitão do time da vez pode escolher.", ephemeral=True)
+            return
+
+        pais_nome = self.values[0]
+        pais = next(p for p in d["pool"] if p["nome"] == pais_nome)
+        d["pool"].remove(pais)
+        d["picks"][time_da_vez].append(pais)
+        d["turno"] += 1
+        
+        # Cancela timer antigo
+        if d.get("timer_task"):
+            d["timer_task"].cancel()
+
+        if d["turno"] >= len(d["ordem"]) or not d["pool"]:
+            texto = "🏁 **DRAFT FINALIZADO!**\n\n"
+            for i, time_nome in enumerate(d["times"]):
+                lista = ", ".join([f"{p['bandeira']} {p['nome']}" for p in d["picks"][i]])
+                texto += f"**{time_nome}:** {lista}\n"
+            await interaction.response.send_message(texto)
+            del drafts[self.draft_id]
+            return
+
+        # Próxima vez
+        prox_time = d["ordem"][d["turno"]]
+        prox_cap = d["capitaes"][prox_time]
+        embed = discord.Embed(title="🎲 DRAFT - SNAKE (ABBA)", description=f"Vez de **{d['times'][prox_time]}** - <@{prox_cap}>\nVocê tem **5 min** ou o sistema escolhe aleatório!", color=0xFFD700)
+        view = DraftView(self.draft_id)
+        await interaction.response.send_message(embed=embed, view=view)
+        # Reinicia timer
+        d["timer_task"] = asyncio.create_task(timer_autopick(self.draft_id, interaction.channel, view))
+
+class DraftView(discord.ui.View):
+    def __init__(self, draft_id):
+        super().__init__(timeout=None)
+        self.add_item(DraftSelect(draft_id))
+
+async def timer_autopick(draft_id, canal, view):
+    try:
+        await asyncio.sleep(300) # 5 minutos
+        d = drafts.get(draft_id)
+        if not d: return
+        # Auto-pick aleatório
+        pais = random.choice(d["pool"])
+        time_da_vez = d["ordem"][d["turno"]]
+        d["pool"].remove(pais)
+        d["picks"][time_da_vez].append(pais)
+        d["turno"] += 1
+        await canal.send(f"⏰ Tempo esgotado! Auto-pick para **{d['times'][time_da_vez]}**: {pais['bandeira']} {pais['nome']}")
+        # Chama próxima rodada
+        if d["turno"] < len(d["ordem"]):
+            prox_time = d["ordem"][d["turno"]]
+            prox_cap = d["capitaes"][prox_time]
+            embed = discord.Embed(title="🎲 DRAFT - SNAKE (ABBA)", description=f"Vez de **{d['times'][prox_time]}** - <@{prox_cap}>", color=0xFFD700)
+            await canal.send(embed=embed, view=DraftView(draft_id))
+            d["timer_task"] = asyncio.create_task(timer_autopick(draft_id, canal, DraftView(draft_id)))
+    except asyncio.CancelledError:
+        pass
+
+@bot.tree.command(name="draft", description="Inicia o Draft Snake")
+async def draft(interaction: discord.Interaction, time_a: str, capitao_a: discord.Member, time_b: str, capitao_b: discord.Member, picks_por_time: int = 4):
+    draft_id = interaction.channel_id
+    qtd_total = picks_por_time * 2
+    drafts[draft_id] = {
+        "times": [time_a, time_b],
+        "capitaes": [capitao_a.id, capitao_b.id],
+        "picks": [[], []],
+        "pool": PAISES_POOL.copy(),
+        "ordem": ordem_snake(qtd_total),
+        "turno": 0,
+        "timer_task": None
+    }
+    embed = discord.Embed(title="🎲 DRAFT INICIADO - SNAKE ABBA", description=f"**{time_a}** (Cap: {capitao_a.mention}) VS **{time_b}** (Cap: {capitao_b.mention})\n\nOrdem: A -> B -> B -> A -> A -> B...\nVez de **{time_a}** - {capitao_a.mention} - 5 min!", color=0xFFD700)
+    view = DraftView(draft_id)
+    await interaction.response.send_message(embed=embed, view=view)
+ 
+   drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction.channel, view))
+@bot.event
+async def on_ready():
+    print(f"Logado como {bot.user}")
+    try:
+        synced = await bot.tree.sync()
+        print(f"Sincronizado {len(synced)} comandos")
+    except Exception as e:
+        print(e)
 bot.run(TOKEN)
