@@ -389,12 +389,6 @@ async def draft(interaction: discord.Interaction, time_a: str, capitao_a: discor
     view = DraftView(draft_id)
     await interaction.response.send_message(embed=embed, view=view)
     drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction.channel, view))
-    }
-    embed = discord.Embed(title="🎲 DRAFT INICIADO - SNAKE ABBA", description=f"**{time_a}** (Cap: {capitao_a.mention}) VS **{time_b}** (Cap: {capitao_b.mention})\n\nOrdem: A -> B -> B -> A -> A -> B...\nVez de **{time_a}** - {capitao_a.mention} - 5 min!", color=0xFFD700)
-    view = DraftView(draft_id)
-    await interaction.response.send_message(embed=embed, view=view)
- 
-   drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction.channel, view))
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
