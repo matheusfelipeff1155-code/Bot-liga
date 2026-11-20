@@ -382,17 +382,6 @@ import asyncio, random
 
 MAPA_URL = "https://cdn.discordapp.com/attachments/1569082136101785654/1573198989615169607/Screenshot_20261112-185316.Discord2.jpg?ex=6b01233b&is=6affd1bb&hm=2887014f9dd3935c5388b7bf35770245182e7d94aaf065faa9e4c4cdf39de311&"
 
-PAISES_POOL = [
-    # nome, bandeira, stats [ataque | defesa | eco]
-    {"nome": "Alemanha", "bandeira": "🇩🇪", "stats": "[ 05 | 03 | 03 ]", "emoji": "🦅"},
-    {"nome": "Polônia", "bandeira": "🇵🇱", "stats": "[ 03 | 03 | 05 ]", "emoji": "🦅"},
-    {"nome": "Itália", "bandeira": "🇮🇹", "stats": "[ 03 | 03 | 05 ]", "emoji": "🦅"},
-    {"nome": "França", "bandeira": "🇫🇷", "stats": "[ 03 | 03 | 05 ]", "emoji": "🦅"},
-    {"nome": "Reino Unido", "bandeira": "🇬🇧", "stats": "[ 04 | 04 | 04 ]", "emoji": "🦅"},
-    {"nome": "URSS", "bandeira": "🇷🇺", "stats": "[ 05 | 05 | 03 ]", "emoji": "🦅"},
-    {"nome": "EUA", "bandeira": "🇺🇸", "stats": "[ 05 | 04 | 05 ]", "emoji": "🦅"},
-    {"nome": "Japão", "bandeira": "🇯🇵", "stats": "[ 04 | 03 | 03 ]", "emoji": "🦅"},
-]
 
 drafts = {}
 
