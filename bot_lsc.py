@@ -372,12 +372,6 @@ async def timer_autopick(draft_id, canal, view):
     except asyncio.CancelledError:
         pass
 
-@bot.tree.command(name="draft", description="Inicia o Draft Snake")
-async def draft(interaction: discord.Interaction, time_a: str, capitao_a: discord.Member, time_b: str, capitao_b: discord.Member, picks_por_time: int = 4):
-    draft_id = interaction.channel_id
-    drafts[draft_id] = {"times": [time_a, time_b], "capitaes": [capitao_a.id, capitao_b.id], "picks": [[], []], "pool": PAISES_POOL.copy(), "ordem": ordem_snake(picks_por_time * 2), "turno": 0, "timer_task": None}
-    await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
-    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction))
 # ===== SISTEMA DE DRAFT V2 - ESTILO DROGON =====
 import asyncio, random
 
