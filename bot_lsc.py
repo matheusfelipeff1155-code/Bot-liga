@@ -271,14 +271,19 @@ import asyncio, random
 
 # ===== SISTEMA DE DRAFT SNAKE =====
 PAISES_POOL = [
-    {"nome": "Alemanha", "bandeira": "🇩🇪", "doutrina": "🛡️ Eixo", "eco": "Forte"},
-    {"nome": "EUA", "bandeira": "🇺🇸", "doutrina": "⚔️ Aliados", "eco": "Muito Forte"},
-    {"nome": "URSS", "bandeira": "🇷🇺", "doutrina": "☭ Comintern", "eco": "Médio"},
-    {"nome": "Reino Unido", "bandeira": "🇬🇧", "doutrina": "⚔️ Aliados", "eco": "Forte"},
-    {"nome": "Japão", "bandeira": "🇯🇵", "doutrina": "🛡️ Eixo", "eco": "Médio"},
-    {"nome": "França", "bandeira": "🇫🇷", "doutrina": "⚔️ Aliados", "eco": "Médio"},
-    {"nome": "Itália", "bandeira": "🇮🇹", "doutrina": "🛡️ Eixo", "eco": "Fraco"},
-    {"nome": "China", "bandeira": "🇨🇳", "doutrina": "☭ Comintern", "eco": "Fraco"},
+    {"nome": "Alemanha", "bandeira": "🇩🇪", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Itália", "bandeira": "🇮🇹", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "Polônia", "bandeira": "🇵🇱", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Romênia", "bandeira": "🇷🇴", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "Ucrânia", "bandeira": "🇺🇦", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+    {"nome": "Arkhangelsk", "bandeira": "🏴", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
+    {"nome": "Espanha", "bandeira": "🇪🇸", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "Finlândia", "bandeira": "🇫🇮", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "França", "bandeira": "🇫🇷", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Iugoslávia", "bandeira": "🇷🇸", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
+    {"nome": "Reino Unido", "bandeira": "🇬🇧", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Rússia Central", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
+    {"nome": "Suécia", "bandeira": "🇸🇪", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
 ]
 
 drafts = {}
