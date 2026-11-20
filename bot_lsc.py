@@ -378,17 +378,138 @@ async def draft(interaction: discord.Interaction, time_a: str, capitao_a: discor
     qtd_total = picks_por_time * 2
     drafts[draft_id] = {
         "times": [time_a, time_b],
+# ===== SISTEMA DE DRAFT V2 - ESTILO DROGON =====
+import asyncio, random
+
+MAPA_URL = "COLOQUE_AQUI_O_LINK_DA_IMAGEM_DO_MAPA"
+
+PAISES_POOL = [
+    # nome, bandeira, stats [ataque | defesa | eco]
+    {"nome": "Alemanha", "bandeira": "🇩🇪", "stats": "[ 05 | 03 | 03 ]", "emoji": "🦅"},
+    {"nome": "Polônia", "bandeira": "🇵🇱", "stats": "[ 03 | 03 | 05 ]", "emoji": "🦅"},
+    {"nome": "Itália", "bandeira": "🇮🇹", "stats": "[ 03 | 03 | 05 ]", "emoji": "🦅"},
+    {"nome": "França", "bandeira": "🇫🇷", "stats": "[ 03 | 03 | 05 ]", "emoji": "🦅"},
+    {"nome": "Reino Unido", "bandeira": "🇬🇧", "stats": "[ 04 | 04 | 04 ]", "emoji": "🦅"},
+    {"nome": "URSS", "bandeira": "🇷🇺", "stats": "[ 05 | 05 | 03 ]", "emoji": "🦅"},
+    {"nome": "EUA", "bandeira": "🇺🇸", "stats": "[ 05 | 04 | 05 ]", "emoji": "🦅"},
+    {"nome": "Japão", "bandeira": "🇯🇵", "stats": "[ 04 | 03 | 03 ]", "emoji": "🦅"},
+]
+
+drafts = {}
+
+def ordem_snake(qtd):
+    ordem = []
+    r = 0
+    while len(ordem) < qtd:
+        ordem += [0, 1, 1, 0] if r % 2 == 0 else [1, 0, 0, 1]
+        r += 1
+    return ordem[:qtd]
+
+def montar_embed(d):
+    turno = d["turno"]
+    time_vez = d["ordem"][turno] if turno < len(d["ordem"]) else 0
+    cap_vez = d["capitaes"][time_vez]
+
+    texto = f"**{d['times'][0]} vs {d['times'][1]}**\n"
+    texto += f"Região / Teatro: 🟢 Europa\n\n"
+    texto += f"➔ Sua vez, <@{cap_vez}>! ({d['times'][time_vez]})\n"
+    texto += f"*Selecione uma nação disponível no menu abaixo:*\n\n"
+
+    for i in range(2):
+        cor = "🔵" if i == 0 else "🔴"
+        cargo = "(Mandante)" if i == 0 else "(Visitante)"
+        texto += f"{cor} **{d['times'][i]} {cargo}**\n"
+        texto += f"[ 🪖 | 🏭 | 🛢️ ]\n"
+        if not d["picks"][i]:
+            texto += "*Nenhuma nação ainda*\n"
+        for p in d["picks"][i]:
+            texto += f"{p['stats']} - {p['bandeira']} {p['nome']}\n"
+        texto += "\n"
+
+    embed = discord.Embed(title="Draft de Nações", description=texto, color=0x2B2D31)
+    embed.set_image(url=MAPA_URL)
+    embed.set_footer(text=f"Pick {turno+1}/{len(d['ordem'])} | Você tem 5 min ou auto-pick")
+    return embed
+
+class DraftSelect(discord.ui.Select):
+    def __init__(self, draft_id):
+        self.draft_id = draft_id
+        d = drafts[draft_id]
+        options = [discord.SelectOption(label=p["nome"], description=f"{p['stats']} | {p['bandeira']}", value=p["nome"], emoji=p["bandeira"]) for p in d["pool"]]
+        super().__init__(placeholder="Selecione uma nação", options=options, min_values=1, max_values=1)
+
+    async def callback(self, interaction: discord.Interaction):
+        d = drafts.get(self.draft_id)
+        if not d:
+            await interaction.response.send_message("Draft encerrado.", ephemeral=True)
+            return
+        time_vez = d["ordem"][d["turno"]]
+        if interaction.user.id != d["capitaes"][time_vez]:
+            await interaction.response.send_message("❌ Não é a sua vez! Só o Capitão da vez pode escolher.", ephemeral=True)
+            return
+
+        pais = next(p for p in d["pool"] if p["nome"] == self.values[0])
+        d["pool"].remove(pais)
+        d["picks"][time_vez].append(pais)
+        d["turno"] += 1
+        if d.get("timer_task"):
+            d["timer_task"].cancel()
+
+        # FIM DO DRAFT
+        if d["turno"] >= len(d["ordem"]):
+            texto_final = "🏁 **DRAFT FINALIZADO!**\n\n"
+            for i in range(2):
+                lista = ", ".join([f"{p['bandeira']} {p['nome']}" for p in d["picks"][i]])
+                texto_final += f"**{d['times'][i]}:** {lista}\n"
+            embed_final = discord.Embed(title="Draft de Nações - Finalizado", description=texto_final, color=0x00FF00)
+            embed_final.set_image(url=MAPA_URL)
+            await interaction.response.edit_message(embed=embed_final, view=None)
+            del drafts[self.draft_id]
+            return
+
+        # EDITA A MESMA MENSAGEM - NÃO MANDA NOVA
+        await interaction.response.edit_message(embed=montar_embed(d), view=DraftView(self.draft_id))
+        d["timer_task"] = asyncio.create_task(timer_autopick(self.draft_id, interaction))
+
+class DraftView(discord.ui.View):
+    def __init__(self, draft_id):
+        super().__init__(timeout=None)
+        self.add_item(DraftSelect(draft_id))
+
+async def timer_autopick(draft_id, interaction):
+    try:
+        await asyncio.sleep(300)
+        d = drafts.get(draft_id)
+        if not d: return
+        pais = random.choice(d["pool"])
+        time_vez = d["ordem"][d["turno"]]
+        d["pool"].remove(pais)
+        d["picks"][time_vez].append(pais)
+        d["turno"] += 1
+        # Edita a mesma mensagem com o auto-pick
+        try:
+            await interaction.message.edit(embed=montar_embed(d), view=DraftView(draft_id))
+            await interaction.channel.send(f"⏰ Tempo esgotado! Auto-pick para **{d['times'][time_vez]}**: {pais['bandeira']} {pais['nome']}")
+        except: pass
+        if d["turno"] < len(d["ordem"]):
+            d["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction))
+    except asyncio.CancelledError:
+        pass
+
+@bot.tree.command(name="draft", description="Inicia o Draft Snake")
+async def draft(interaction: discord.Interaction, time_a: str, capitao_a: discord.Member, time_b: str, capitao_b: discord.Member, picks_por_time: int = 4):
+    draft_id = interaction.channel_id
+    drafts[draft_id] = {
+        "times": [time_a, time_b],
         "capitaes": [capitao_a.id, capitao_b.id],
         "picks": [[], []],
         "pool": PAISES_POOL.copy(),
-        "ordem": ordem_snake(qtd_total),
+        "ordem": ordem_snake(picks_por_time * 2),
         "turno": 0,
         "timer_task": None
     }
-    embed = discord.Embed(title="🎲 DRAFT INICIADO - SNAKE ABBA", description=f"**{time_a}** (Cap: {capitao_a.mention}) VS **{time_b}** (Cap: {capitao_b.mention})\n\nOrdem: A -> B -> B -> A -> A -> B...\nVez de **{time_a}** - {capitao_a.mention} - 5 min!", color=0xFFD700)
-    view = DraftView(draft_id)
-    await interaction.response.send_message(embed=embed, view=view)
-    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction.channel, view))
+    await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
+    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction))
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
