@@ -375,7 +375,7 @@ async def timer_autopick(draft_id, canal, view):
 # ===== SISTEMA DE DRAFT V2 - ESTILO DROGON =====
 import asyncio, random
 
-MAPA_URL = "COLOQUE_AQUI_O_LINK_DA_IMAGEM_DO_MAPA"
+MAPA_URL = "https://cdn.discordapp.com/attachments/1569082136101785654/1573198989615169607/Screenshot_20261112-185316.Discord2.jpg?ex=6b01233b&is=6affd1bb&hm=2887014f9dd3935c5388b7bf35770245182e7d94aaf065faa9e4c4cdf39de311&"
 
 PAISES_POOL = [
     # nome, bandeira, stats [ataque | defesa | eco]
