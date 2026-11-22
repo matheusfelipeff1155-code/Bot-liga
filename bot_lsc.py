@@ -416,7 +416,7 @@ def montar_embed(d):
     cap_vez = d["capitaes"][time_vez]
 
     texto = f"**{d['times'][0]} vs {d['times'][1]}**\n"
-    texto += f"Região / Teatro: 🟢 Europa\n\n"
+    texto += f"Região : 🟢 {d.get('regiao', 'Europa')}\n\n"
     texto += f"➔ Sua vez, <@{cap_vez}>! ({d['times'][time_vez]})\n"
     texto += f"*Selecione uma nação disponível no menu abaixo:*\n\n"
 
@@ -515,6 +515,21 @@ async def draft(interaction: discord.Interaction, time_a: str, capitao_a: discor
     }
     await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
     drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction))
+    @bot.tree.command(name="draft_asia_ocidental", description="Inicia Draft - Asia Ocidental")
+async def draft_asia_ocidental(interaction: discord.Interaction, time_a: str, time_b: str, capitao_a: discord.Member, capitao_b: discord.Member, picks_por_time: int):
+    draft_id = interaction.channel_id
+    drafts[draft_id] = {
+        "times": [time_a, time_b],
+        "capitaes": [capitao_a.id, capitao_b.id],
+        "picks": [[], []],
+        "pool": PAISES_ASIA_OCIDENTAL.copy(),
+        "ordem": ordem_snake(picks_por_time * 2),
+        "turno": 0,
+        "timer_task": None,
+        "regiao": "Asia Ocidental"
+    }
+    await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
+    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction))
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
