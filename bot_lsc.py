@@ -302,24 +302,23 @@ PAISES_ASIA_OCIDENTAL = [
     {"nome": "Volga Nizhny", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
     {"nome": "Xinjiang", "bandeira": "🇨🇳", "faccao": "Pan-Asian", "cor": "🟠", "stats": [3, 5, 3]},
 ]
-# ===== ÁSIA ORIENTAL =====
-PAISES_ASIA_ORIENTAL = [
-    {"nome": "Austrália Ocidental", "bandeira": "🇦🇺", "faccao": "Aliados"},
-    {"nome": "Birmânia", "bandeira": "🇲🇲", "faccao": "Eixo"},
-    {"nome": "China Comunista", "bandeira": "🇨🇳", "faccao": "Comintern"},
-    {"nome": "China do Sul", "bandeira": "🇨🇳", "faccao": "Aliados"},
-    {"nome": "China Nacionalista", "bandeira": "🇹🇼", "faccao": "Aliados"},
-    {"nome": "Coreia", "bandeira": "🇰🇷", "faccao": "Eixo"},
-    {"nome": "Filipinas", "bandeira": "🇵🇭", "faccao": "Aliados"},
-    {"nome": "Indochina", "bandeira": "🇻🇳", "faccao": "Eixo"},
-    {"nome": "Indonésia", "bandeira": "🇮🇩", "faccao": "Eixo"},
-    {"nome": "Japão", "bandeira": "🇯🇵", "faccao": "Eixo"},
-    {"nome": "Malásia", "bandeira": "🇲🇾", "faccao": "Aliados"},
-    {"nome": "Manchúria", "bandeira": "🇨🇳", "faccao": "Eixo"},
-    {"nome": "Mongólia", "bandeira": "🇲🇳", "faccao": "Comintern"},
-    {"nome": "Singapura", "bandeira": "🇸🇬", "faccao": "Aliados"},
-    {"nome": "Tailândia", "bandeira": "🇹🇭", "faccao": "Eixo"},
-    {"nome": "Vietnã", "bandeira": "🇻🇳", "faccao": "Comintern"},
+#PAISES_ASIA_ORIENTAL = [
+    {"nome": "Austrália Ocidental", "bandeira": "🇦🇺", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Birmânia", "bandeira": "🇲🇲", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "China Comunista", "bandeira": "🇨🇳", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
+    {"nome": "China do Sul", "bandeira": "🇨🇳", "faccao": "Pan-Asian", "cor": "🟠", "stats": [3, 3, 5]},
+    {"nome": "China Nacionalista", "bandeira": "🇹🇼", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Coreia", "bandeira": "🇰🇷", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+    {"nome": "Filipinas", "bandeira": "🇵🇭", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Indochina", "bandeira": "🇻🇳", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+    {"nome": "Indonésia", "bandeira": "🇮🇩", "faccao": "Pan-Asian", "cor": "🟠", "stats": [3, 3, 5]},
+    {"nome": "Japão", "bandeira": "🇯🇵", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Malásia", "bandeira": "🇲🇾", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Manchúria", "bandeira": "🇨🇳", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Mongólia", "bandeira": "🇲🇳", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+    {"nome": "Singapura", "bandeira": "🇸🇬", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Tailândia", "bandeira": "🇹🇭", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "Vietnã", "bandeira": "🇻🇳", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
 ]
 drafts = {}
 
