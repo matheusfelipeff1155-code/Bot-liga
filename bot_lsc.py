@@ -632,6 +632,17 @@ async def draft_africa(interaction: discord.Interaction, time_a: str, time_b: st
     }
     await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
     drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction))
+@bot.tree.command(name="emojis", description="Mostra os IDs dos emojis do servidor")
+async def emojis(interaction: discord.Interaction):
+    texto = ""
+    for e in interaction.guild.emojis:
+        texto += f"{e.name} -> <:{e.name}:{e.id}>\n"
+    
+    # Divide se for muito grande
+    if len(texto) > 1900:
+        texto = texto[:1900]
+    
+    await interaction.response.send_message(texto)
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
