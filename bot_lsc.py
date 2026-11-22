@@ -545,8 +545,8 @@ async def draft_asia_oriental(interaction: discord.Interaction, time_a: str, tim
         "regiao": "Asia Oriental",
         "imagem": "https://cdn.discordapp.com/attachments/1569082136101785654/1574169796298412182/areas_map_focus_cmtowb2590002ob1s49kmjpl7_4_1793943783827-1.jpg?ex=6b04ab5e&is=6b0359de&hm=b0ac37492a71a1b5f3dab5e55543bb2ed4d5d4eee0f7ecba5c2018b8304337f6&"
     }
-    await interaction.response.send_message(embed=monta_embed(draft_id))
-    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id))
+    await interaction.response.send_message(embed=montar_embed(draft_id))
+    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction))
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
