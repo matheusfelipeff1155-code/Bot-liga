@@ -284,6 +284,23 @@ PAISES_POOL = [
     {"nome": "Reino Unido", "bandeira": "🇬🇧", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
     {"nome": "Rússia Central", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
     {"nome": "Suécia", "bandeira": "🇸🇪", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+]# ===== ÁSIA OCIDENTAL =====
+PAISES_ASIA_OCIDENTAL = [
+    {"nome": "Arábia Saudita", "bandeira": "🇸🇦", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+    {"nome": "Cazaquistão", "bandeira": "🇰🇿", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+    {"nome": "Clique Ma", "bandeira": "🇨🇳", "faccao": "Pan-Asian", "cor": "🟠", "stats": [3, 3, 5]},
+    {"nome": "Índia do Norte", "bandeira": "🇮🇳", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Índia do Sul", "bandeira": "🇮🇳", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Orissa Britânica", "bandeira": "🇧🇩", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Paquistão", "bandeira": "🇵🇰", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
+    {"nome": "Pérsia", "bandeira": "🇮🇷", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "Sibéria", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
+    {"nome": "Síria", "bandeira": "🇸🇾", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Tibete", "bandeira": "🇨🇳", "faccao": "Pan-Asian", "cor": "🟠", "stats": [5, 3, 3]},
+    {"nome": "Turquia", "bandeira": "🇹🇷", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
+    {"nome": "Urais do Norte", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+    {"nome": "Volga Nizhny", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+    {"nome": "Xinjiang", "bandeira": "🇨🇳", "faccao": "Pan-Asian", "cor": "🟠", "stats": [3, 5, 3]},
 ]
 
 drafts = {}
