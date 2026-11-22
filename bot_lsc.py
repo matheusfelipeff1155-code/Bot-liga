@@ -341,6 +341,21 @@ PAISES_AMERICAS = [
     {"nome": "Saskatchewan", "bandeira": "🇨🇦", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
     {"nome": "Venezuela", "bandeira": "🇻🇪", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
 ]
+PAISES_AFRICA = [
+    {"nome": "África do Sul", "bandeira": "🇿🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Alto Volta", "bandeira": "🇧🇫", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Argélia", "bandeira": "🇩🇿", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+    {"nome": "Congo Belga", "bandeira": "🇨🇩", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+    {"nome": "Egito", "bandeira": "🇪🇬", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Equatorial Gabon", "bandeira": "🇬🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Etiópia", "bandeira": "🇪🇹", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Líbia", "bandeira": "🇱🇾", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Mauritânia", "bandeira": "🇲🇷", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Nigéria", "bandeira": "🇳🇬", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Sudão do Norte", "bandeira": "🇸🇩", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Sudoeste Africano", "bandeira": "🇳🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Tanganica", "bandeira": "🇹🇿", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+]
 drafts = {}
 
 def ordem_snake(qtd_picks):
@@ -598,6 +613,22 @@ async def draft_americas(interaction: discord.Interaction, time_a: str, time_b: 
         "timer_task": None,
         "regiao": "Americas",
         "imagem": "https://cdn.discordapp.com/attachments/1569082136101785654/1574192474908528720/areas_map_focus_cmtowb2590002ob1s49kmjpl7_0_1788671212452-1.jpg?ex=6b04c07d&is=6b036efd&hm=3cd7afd8fdaec73f425327e35bc521147bdf6e1b9de8cc97f4b450a5999def8e&"
+    }
+    await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
+    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction)) 
+@bot.tree.command(name="draft_africa", description="Draft África")
+async def draft_africa(interaction: discord.Interaction, time_a: str, time_b: str, capitao_a: discord.Member, capitao_b: discord.Member, picks_por_time: int):
+    draft_id = interaction.channel_id
+    drafts[draft_id] = {
+        "times": [time_a, time_b],
+        "capitaes": [capitao_a.id, capitao_b.id],
+        "picks": [[], []],
+        "pool": PAISES_AFRICA.copy(),
+        "ordem": ordem_snake(picks_por_time * 2),
+        "turno": 0,
+        "timer_task": None,
+        "regiao": "Africa",
+        "imagem": "https://cdn.discordapp.com/attachments/1569082136101785654/1574200915961847928/areas_map_focus_cmtowb2590002ob1s49kmjpl7_2_1788676250699.jpg?ex=6b04c859&is=6b0376d9&hm=83cc86eb53b6f4501ccac18c228cee8df08e80d8480f601db8431f45d76a4581&"
     }
     await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
     drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction))
