@@ -317,6 +317,7 @@ PAISES_ASIA_ORIENTAL = [
     {"nome": "Sichuan", "bandeira": "🇨🇳", "faccao": "Pan-Asian", "cor": "🟠", "stats": [3, 5, 3]},
     {"nome": "Yakútia Ocidental", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
     {"nome": "Yakútia Oriental", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
+]
 PAISES_AMERICAS = [
     {"nome": "Argentina", "bandeira": "🇦🇷", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
     {"nome": "Bolívia", "bandeira": "🇧🇴", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
