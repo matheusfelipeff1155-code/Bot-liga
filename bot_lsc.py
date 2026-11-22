@@ -590,7 +590,7 @@ async def draft_americas(interaction: discord.Interaction, time_a: str, time_b: 
     draft_id = interaction.channel_id
     drafts[draft_id] = {
         "times": [time_a, time_b],
-        "capitaes": [capitao_a_id, capitao_b_id],
+        "capitaes": [capitao_a.id, capitao_b.id],
         "picks": [[], []],
         "pool": PAISES_AMERICAS.copy(),
         "ordem": ordem_snake(picks_por_time * 2),
@@ -599,8 +599,8 @@ async def draft_americas(interaction: discord.Interaction, time_a: str, time_b: 
         "regiao": "Americas",
         "imagem": "https://cdn.discordapp.com/attachments/1569082136101785654/1574192474908528720/areas_map_focus_cmtowb2590002ob1s49kmjpl7_0_1788671212452-1.jpg?ex=6b04c07d&is=6b036efd&hm=3cd7afd8fdaec73f425327e35bc521147bdf6e1b9de8cc97f4b450a5999def8e&"
     }
-    await interaction.response.send_message(embed=montar_embed_draft(draft_id))
-    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id))
+    await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
+    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction))
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
