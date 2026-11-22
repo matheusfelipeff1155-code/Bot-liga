@@ -302,7 +302,7 @@ PAISES_ASIA_OCIDENTAL = [
     {"nome": "Volga Nizhny", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
     {"nome": "Xinjiang", "bandeira": "🇨🇳", "faccao": "Pan-Asian", "cor": "🟠", "stats": [3, 5, 3]},
 ]
-#PAISES_ASIA_ORIENTAL = [
+PAISES_ASIA_ORIENTAL = [
     {"nome": "Austrália Ocidental", "bandeira": "🇦🇺", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
     {"nome": "Birmânia", "bandeira": "🇲🇲", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
     {"nome": "China Comunista", "bandeira": "🇨🇳", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
