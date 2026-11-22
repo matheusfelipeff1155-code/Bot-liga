@@ -285,7 +285,7 @@ PAISES_EUROPA = [
     {"nome": "Suécia", "bandeira": "🇸🇪", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
     {"nome": "Ucrânia", "bandeira": "<:bandeira_ucrania:1574207807425740820>", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
 ]
-]# ===== ÁSIA OCIDENTAL =====
+# ===== ÁSIA OCIDENTAL =====
 PAISES_ASIA_OCIDENTAL = [
     {"nome": "Arábia Saudita", "bandeira": "🇸🇦", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
     {"nome": "Cazaquistão", "bandeira": "🇰🇿", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
