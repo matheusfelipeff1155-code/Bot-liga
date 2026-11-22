@@ -432,7 +432,7 @@ def montar_embed(d):
         texto += "\n"
 
     embed = discord.Embed(title="Draft de Nações", description=texto, color=0x2B2D31)
-    embed.set_image(url=MAPA_URL)
+    embed.set_image(url=d.get("imagem", MAPA_URL))
     embed.set_footer(text=f"Pick {turno+1}/{len(d['ordem'])} | Você tem 5 min ou auto-pick")
     return embed
 
@@ -467,7 +467,7 @@ class DraftSelect(discord.ui.Select):
                 lista = ", ".join([f"{p['bandeira']} {p['nome']}" for p in d["picks"][i]])
                 texto_final += f"**{d['times'][i]}:** {lista}\n"
             embed_final = discord.Embed(title="Draft de Nações - Finalizado", description=texto_final, color=0x00FF00)
-            embed_final.set_image(url=MAPA_URL)
+            embed_final.set_image(url=d.get("imagem", MAPA_URL))
             await interaction.response.edit_message(embed=embed_final, view=None)
             del drafts[self.draft_id]
             return
