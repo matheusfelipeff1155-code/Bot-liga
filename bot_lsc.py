@@ -270,20 +270,21 @@ async def setup_suporte(interaction: discord.Interaction):
 import asyncio, random
 
 # ===== SISTEMA DE DRAFT SNAKE =====
-PAISES_POOL = [
-    {"nome": "Alemanha", "bandeira": "🇩🇪", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
-    {"nome": "Itália", "bandeira": "🇮🇹", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
-    {"nome": "Polônia", "bandeira": "🇵🇱", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
-    {"nome": "Romênia", "bandeira": "🇷🇴", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
-    {"nome": "Ucrânia", "bandeira": "🇺🇦", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
-    {"nome": "Arkhangelsk", "bandeira": "🏴", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
+PAISES_EUROPA = [
+    {"nome": "Alemanha", "bandeira": "<:bandeira_alemanha:1574207538948481094>", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Arkhangelsk", "bandeira": "<:bandeira_arcangel:1574207310920945779>", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
     {"nome": "Espanha", "bandeira": "🇪🇸", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
     {"nome": "Finlândia", "bandeira": "🇫🇮", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
     {"nome": "França", "bandeira": "🇫🇷", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
-    {"nome": "Iugoslávia", "bandeira": "🇷🇸", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
+    {"nome": "Itália", "bandeira": "<:bandeira_italia:1574210946673672344>", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "Iugoslávia", "bandeira": "<:bandeira_iugoslavia:1574207429619753163>", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Polônia", "bandeira": "🇵🇱", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
     {"nome": "Reino Unido", "bandeira": "🇬🇧", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
-    {"nome": "Rússia Central", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
-    {"nome": "Suécia", "bandeira": "🇸🇪", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+    {"nome": "Romênia", "bandeira": "🇷🇴", "faccao": "Axis", "cor": "⚫", "stats": [3, 3, 5]},
+    {"nome": "Rússia Central", "bandeira": "<:bandeira_russia_central:1574207776832626728>", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
+    {"nome": "Suécia", "bandeira": "🇸🇪", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Ucrânia", "bandeira": "<:bandeira_ucrania:1574207807425740820>", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+]
 ]# ===== ÁSIA OCIDENTAL =====
 PAISES_ASIA_OCIDENTAL = [
     {"nome": "Arábia Saudita", "bandeira": "🇸🇦", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
