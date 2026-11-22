@@ -514,8 +514,8 @@ async def draft(interaction: discord.Interaction, time_a: str, capitao_a: discor
         "timer_task": None
     }
     await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
-    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction))
-    @bot.tree.command(name="draft_asia_ocidental", description="Inicia Draft - Asia Ocidental")
+    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_autopick(draft_id, interaction)) 
+@bot.tree.command(name="draft_asia_ocidental", description="Inicia Draft - Asia Ocidental")
 async def draft_asia_ocidental(interaction: discord.Interaction, time_a: str, time_b: str, capitao_a: discord.Member, capitao_b: discord.Member, picks_por_time: int):
     draft_id = interaction.channel_id
     drafts[draft_id] = {
