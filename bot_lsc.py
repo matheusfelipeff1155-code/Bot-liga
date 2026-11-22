@@ -636,13 +636,12 @@ async def draft_africa(interaction: discord.Interaction, time_a: str, time_b: st
 async def emojis(interaction: discord.Interaction):
     texto = ""
     for e in interaction.guild.emojis:
-        texto += f"{e.name} -> <:{e.name}:{e.id}>\n"
+        texto += f"{e.name} : {e.id}\n"
     
-    # Divide se for muito grande
     if len(texto) > 1900:
         texto = texto[:1900]
     
-    await interaction.response.send_message(texto)
+    await interaction.response.send_message(f"```\n{texto}\n```")
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
