@@ -318,7 +318,6 @@ PAISES_ASIA_ORIENTAL = [
     {"nome": "Yakútia Ocidental", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
     {"nome": "Yakútia Oriental", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
 ]
-]
 drafts = {}
 
 def ordem_snake(qtd_picks):
