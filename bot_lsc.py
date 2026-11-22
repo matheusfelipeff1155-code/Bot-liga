@@ -317,6 +317,28 @@ PAISES_ASIA_ORIENTAL = [
     {"nome": "Sichuan", "bandeira": "🇨🇳", "faccao": "Pan-Asian", "cor": "🟠", "stats": [3, 5, 3]},
     {"nome": "Yakútia Ocidental", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
     {"nome": "Yakútia Oriental", "bandeira": "🇷🇺", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
+PAISES_AMERICAS = [
+    {"nome": "Argentina", "bandeira": "🇦🇷", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Bolívia", "bandeira": "🇧🇴", "faccao": "Comintern", "cor": "🔴", "stats": [3, 5, 3]},
+    {"nome": "Califórnia", "bandeira": "🇺🇸", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Colômbia", "bandeira": "🇨🇴", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+    {"nome": "Colorado", "bandeira": "🇺🇸", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Colúmbia Britânica", "bandeira": "🇨🇦", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "EUA (Norte)", "bandeira": "🇺🇸", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "EUA (Sul)", "bandeira": "🇺🇸", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Illinois", "bandeira": "🇺🇸", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Kansas", "bandeira": "🇺🇸", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Maranhão", "bandeira": "🇧🇷", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "México do Norte", "bandeira": "🇲🇽", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+    {"nome": "México do Sul", "bandeira": "🇲🇽", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Noroeste dos EUA", "bandeira": "🇺🇸", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Nova Inglaterra", "bandeira": "🇺🇸", "faccao": "Allies", "cor": "🔵", "stats": [3, 5, 3]},
+    {"nome": "Ontário", "bandeira": "🇨🇦", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Peru", "bandeira": "🇵🇪", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+    {"nome": "Quebec", "bandeira": "🇨🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "São Paulo", "bandeira": "🇧🇷", "faccao": "Axis", "cor": "⚫", "stats": [2, 3, 5]},
+    {"nome": "Saskatchewan", "bandeira": "🇨🇦", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Venezuela", "bandeira": "🇻🇪", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
 ]
 drafts = {}
 
