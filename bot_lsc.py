@@ -556,7 +556,7 @@ async def draft_asia_oriental(interaction: discord.Interaction, time_a: str, tim
         "times": [time_a, time_b],
         "capitaes": [capitao_a.id, capitao_b.id],
         "picks": [[], []],
-        "pool": ["Austrália Ocidental", "Birmânia", "China Comunista", "China do Sul", "China Nacionalista", "Indochina", "Japão", "Khabarovsk", "Manchukuo", "Mongólia", "Queensland", "Sichuan", "Yakútia Ocidental", "Yakútia Oriental"].copy(),
+        "pool": PAISES_ASIA_ORIENTAL.copy(),
         "ordem": ordem_snake(picks_por_time * 2),
         "turno": 0,
         "timer_task": None,
