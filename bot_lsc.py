@@ -528,7 +528,6 @@ async def draft_asia_ocidental(interaction: discord.Interaction, time_a: str, ti
         "timer_task": None,
         "regiao": "Asia Ocidental",
         "imagem": "https://cdn.discordapp.com/attachments/1569082136101785654/1574135455316840589/areas_map_focus_cmtowb2590002ob1s49kmjpl7_3_1788676275146.jpg?ex=6b048b62&is=6b0339e2&hm=906e9cd7fce460016a4f1da48c11acb22b26197e2f55246321542d34a3af96bd&"
-    }
     await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
     drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction))
 @bot.event
