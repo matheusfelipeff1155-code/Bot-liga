@@ -269,7 +269,7 @@ async def setup_suporte(interaction: discord.Interaction):
 # ===== FIM TICKET =====
 import asyncio, random
 
-# ===== SISTEMA DE DRAFT SNAKE =====
+# ===== EUROPA =====
 PAISES_EUROPA = [
     {"nome": "Alemanha", "bandeira": "<:bandeira_alemanha:1574207538948481094>", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
     {"nome": "Arkhangelsk", "bandeira": "<:bandeira_arcangel:1574207310920945779>", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
@@ -357,11 +357,7 @@ PAISES_AFRICA = [
     {"nome": "Sudoeste Africano", "bandeira": "🇳🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
     {"nome": "Tanganica", "bandeira": "🇹🇿", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
 ]
-# Cria o pool com todos os países de todos os continentes
-PAISES_POOL = []
-for _nome, _valor in list(globals().items()):
-    if _nome.startswith("PAISES_") and isinstance(_valor, list) and _nome != "PAISES_POOL":
-        PAISES_POOL.extend(_valor)
+
 drafts = {}
 
 def ordem_snake(qtd_picks):
@@ -648,6 +644,17 @@ async def emojis(interaction: discord.Interaction):
         texto = texto[:1900]
     
     await interaction.response.send_message(f"```\n{texto}\n```")
+@bot.tree.command(name="draft_europa", description="Inicia um draft da Europa")
+async def draft_europa(interaction: discord.Interaction):
+    draft_id = str(interaction.channel_id)
+    drafts[draft_id] = {
+        "pool": PAISES_EUROPA.copy(),
+        "picks": [],
+        "ordem": [],
+        "turno": 0,
+    }
+    view = DraftView(draft_id)
+    await interaction.response.send_message("Draft da Europa iniciado!", view=view)
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
