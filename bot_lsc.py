@@ -635,7 +635,7 @@ async def draft_africa(interaction: discord.Interaction, time_a: str, time_b: st
     await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
     drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction))
 @bot.tree.command(name="emojis", description="Mostra os IDs dos emojis do servidor")
-async def emojis(interaction: discord.Interaction):
+async def emojis(interaction: discord.Interaction, time_a: str, time_b: str, capitao_a: discord.Member, capitao_b: discord.Member, picks_por_time: int):
     texto = ""
     for e in interaction.guild.emojis:
         texto += f"{e.name} : {e.id}\n"
