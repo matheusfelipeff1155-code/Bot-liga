@@ -471,7 +471,8 @@ def montar_embed(d):
     cap_vez = d["capitaes"][time_vez]
 
     texto = f"**{d['times'][0]} vs {d['times'][1]}**\n"
-    cor_regiao = {"Africa": "🟠", "África": "🟠", "Europa": "🟢", "Americas": "🔵", "Américas": "🔵", "Asia Oriental": "🔴", "Ásia Oriental": "🔴", "Asia Ocidental": "🟣", "Ásia Ocidental": "🟣"}.get(d.get('regiao', 'Europa'), "🟢")
+    reg = d.get('regiao', 'Europa')
+    cor_regiao = "🟠" if "Africa" in reg else "🟢" if "Europa" in reg else "🔵" if "Amer" in reg else "🔴" if "Oriental" in reg else "🟣"
 texto += f"Região : {cor_regiao} {d.get('regiao', 'Europa')}\n"
     texto += f"➔ Sua vez, <@{cap_vez}>! ({d['times'][time_vez]})\n"
     texto += f"*Selecione uma nação disponível no menu abaixo:*\n\n"
