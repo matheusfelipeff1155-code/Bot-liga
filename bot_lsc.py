@@ -357,6 +357,11 @@ PAISES_AFRICA = [
     {"nome": "Sudoeste Africano", "bandeira": "🇳🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
     {"nome": "Tanganica", "bandeira": "🇹🇿", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
 ]
+# Cria o pool com todos os países de todos os continentes
+PAISES_POOL = []
+for _nome, _valor in list(globals().items()):
+    if _nome.startswith("PAISES_") and isinstance(_valor, list) and _nome != "PAISES_POOL":
+        PAISES_POOL.extend(_valor)
 drafts = {}
 
 def ordem_snake(qtd_picks):
