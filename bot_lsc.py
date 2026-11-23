@@ -495,7 +495,7 @@ class DraftSelect(discord.ui.Select):
     def __init__(self, draft_id):
         self.draft_id = draft_id
         d = drafts[draft_id]
-        options = [discord.SelectOption(label=p["nome"], description=f"{p['stats']} | {p['bandeira']}", value=p["nome"], emoji=p["bandeira"]) for p in d["pool"]]
+        options = [discord.SelectOption(label=p["nome"], description=f"{p['stats']}", value=p["nome"], emoji=p["bandeira"]) for p in d["pool"]]
         super().__init__(placeholder="Selecione uma nação", options=options, min_values=1, max_values=1)
 
     async def callback(self, interaction: discord.Interaction):
