@@ -343,19 +343,19 @@ PAISES_AMERICAS = [
     {"nome": "Venezuela", "bandeira": "🇻🇪", "faccao": "Comintern", "cor": "🔴", "stats": [5, 3, 3]},
 ]
 PAISES_AFRICA = [
-    {"nome": "África do Sul", "bandeira": "🇿🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
-    {"nome": "Alto Volta", "bandeira": "🇧🇫", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
-    {"nome": "Argélia", "bandeira": "🇩🇿", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
-    {"nome": "Congo Belga", "bandeira": "🇨🇩", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
-    {"nome": "Egito", "bandeira": "🇪🇬", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
-    {"nome": "Equatorial Gabon", "bandeira": "🇬🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
-    {"nome": "Etiópia", "bandeira": "🇪🇹", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
-    {"nome": "Líbia", "bandeira": "🇱🇾", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
-    {"nome": "Mauritânia", "bandeira": "🇲🇷", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
-    {"nome": "Nigéria", "bandeira": "🇳🇬", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
-    {"nome": "Sudão do Norte", "bandeira": "🇸🇩", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
-    {"nome": "Sudoeste Africano", "bandeira": "🇳🇦", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
-    {"nome": "Tanganica", "bandeira": "🇹🇿", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "África do Sul", "bandeira": "<:bandeira_africa_do_sul:1574276934139908177>", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Alto Volta", "bandeira": "<:bandeira_alto_volta:1574275937199984791>", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Argélia", "bandeira": "<:bandeira_argelia:1574276332333039787>", "faccao": "Axis", "cor": "⚫", "stats": [3, 5, 3]},
+    {"nome": "Congo Belga", "bandeira": "<:bandeira_belgo_congoles:1574276396673409184>", "faccao": "Comintern", "cor": "🔴", "stats": [3, 3, 5]},
+    {"nome": "Egito", "bandeira": "<:bandeira_egito:1574276193337999410>", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Equatorial Gabon", "bandeira": "<:bandeira_gabao_equatorial:1574276234324484136>", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Etiópia", "bandeira": "<:bandeira_etiopia:1574276856784621578>", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Líbia", "bandeira": "<:bandeira_libia:1574275980015435947>", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Mauritânia", "bandeira": "<:bandeira_mauritania:1574276080129417267>", "faccao": "Axis", "cor": "⚫", "stats": [5, 3, 3]},
+    {"nome": "Nigéria", "bandeira": "<:bandeira_nigeria:1574276282231951400>", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Sudão do Norte", "bandeira": "<:bandeira_norte_sudao:1574276803567026236>", "faccao": "Allies", "cor": "🔵", "stats": [3, 3, 5]},
+    {"nome": "Sudoeste Africano", "bandeira": "<:bandeira_sudoeste_da_africa:1574276973096869908>", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
+    {"nome": "Tanganica", "bandeira": "<:bandeira_tanganica:1574276896005558354>", "faccao": "Allies", "cor": "🔵", "stats": [5, 3, 3]},
 ]
 
 drafts = {}
