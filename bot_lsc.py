@@ -377,7 +377,7 @@ class DraftSelect(discord.ui.Select):
         d = drafts[draft_id]
         options = []
         for p in d["pool"]:
-            options.append(discord.SelectOption(label=f"{p['bandeira']} {p['nome']}", description=f"{p['doutrina']} | Eco: {p['eco']}", value=p["nome"]))
+            options.append(discord.SelectOption(label=p["nome"], description=f"{p['doutrina']} | Eco: {p['eco']}", value=p["nome"], emoji=discord.PartialEmoji.from_str(p["bandeira"]) if p["bandeira"].startswith("<") else p["bandeira"]))
         super().__init__(placeholder="Escolha o país do seu time...", options=options, min_values=1, max_values=1)
 
     async def callback(self, interaction: discord.Interaction):
