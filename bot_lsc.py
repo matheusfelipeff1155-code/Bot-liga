@@ -648,8 +648,7 @@ async def emojis(interaction: discord.Interaction, time_a: str, time_b: str, cap
 async def draft_europa(interaction: discord.Interaction, time_a: str, time_b: str, capitao_a: discord.Member, capitao_b: discord.Member, picks_por_time: int):
     draft_id = str(interaction.channel_id)
     drafts[draft_id] = {
-        "time_a": time_a,
-        "time_b": time_b,
+        "times": [time_a, time_b],
         "capitaes": [capitao_a.id, capitao_b.id],
         "picks": [[], []],
         "pool": PAISES_EUROPA.copy(),
