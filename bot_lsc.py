@@ -479,7 +479,7 @@ def montar_embed(d):
         cor = "🔵" if i == 0 else "🔴"
         cargo = "(Mandante)" if i == 0 else "(Visitante)"
         texto += f"{cor} **{d['times'][i]} {cargo}**\n"
-        texto += f"[ 🪖 | 🏭 | 🛢️ ]\n"
+        texto += f"[<:trigo:1574290027779989615> | <:ferro:1574290052152954890> | <:petroleo:1574290098889953440> ]\n"
         if not d["picks"][i]:
             texto += "*Nenhuma nação ainda*\n"
         for p in d["picks"][i]:
