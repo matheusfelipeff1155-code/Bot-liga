@@ -658,6 +658,9 @@ async def draft_europa(interaction: discord.Interaction, time_a: str, time_b: st
         "timer_task": None,
         "regiao": "Europa",
         "imagem": "https://cdn.discordapp.com/attachments/1569082136101785654/1573198989615169607/Screenshot_20261112-185316.Discord2.jpg?ex=6b046efb&is=6b031d7b&hm=f27e5fb26865cf6b55b3e4a79ef54620c8ee98535832ac841c0530433e172e0e&"
+    }
+    await interaction.response.send_message(embed=montar_embed(drafts[draft_id]), view=DraftView(draft_id))
+    drafts[draft_id]["timer_task"] = asyncio.create_task(timer_draft(draft_id, interaction))
 @bot.event
 async def on_ready():
     print(f"Logado como {bot.user}")
