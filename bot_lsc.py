@@ -40,15 +40,6 @@ def salvar(arq, dados):
     with open(arq, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=2, ensure_ascii=False)
 
-@bot.event
-async def on_ready():
-    print(f"Bot online: {bot.user}")
-    try:
-        synced = await bot.tree.sync()
-        print(f"Sincronizado {len(synced)} comandos")
-    except Exception as e:
-        print(e)
-
 
 # ---------- VIEWS PERSISTENTES (pra botão funcionar mesmo depois de reiniciar) ----------
 
@@ -189,6 +180,29 @@ async def inscrever(interaction: discord.Interaction, nome_equipe: str, pais: st
     }
     salvar(ARQUIVO_EQUIPES, equipes)
     await interaction.response.send_message(f"✅ Equipe **{nome_equipe}** criada! Líder: {interaction.user.mention} | País: {pais} | Nick CoW: {p.get('nick_cow')}")
+@bot.tree.command(name="setup_regras", description="Posta as regras oficiais no canal")
+@app_commands.checks.has_permissions(administrator=True)
+async def setup_regras(interaction: discord.Interaction):
+    embed = discord.Embed(
+        title="📜 REGRAS - LIGA SUPREMO COMANDO",
+        description=(
+            "**1. RESPEITO ACIMA DE TUDO** - Proibido faltar com respeito, xingar, humilhar ou provocar qualquer jogador, moderador ou ADM.\n\n"
+            "**2. PROIBIDO PRECONCEITO** - Proibido racismo, homofobia, xenofobia, machismo ou qualquer discurso de ódio. Banimento direto.\n\n"
+            "**3. PROIBIDO TRAPAÇA** - Proibido hack, bug, exploit, conta fake para espionar, ou vazar informações de guerra.\n\n"
+            "**4. PROIBIDO SPAM E FLOOD** - Proibido mandar a mesma mensagem várias vezes, marcar @everyone sem permissão, ou divulgar outro servidor.\n\n"
+            "**5. PROIBIDO VAZAR DADOS PESSOAIS** - Proibido divulgar nome real, endereço, telefone ou qualquer dado pessoal de outro jogador.\n\n"
+            "**6. PROIBIDO CONTEÚDO +18 / NSFW** - Proibido pornografia, gore ou violência real nos canais ou DM de membros.\n\n"
+            "**7. PROIBIDO DIVULGAÇÃO E VENDA** - Proibido vender conta, vender gold, vender vaga em equipe ou fazer propaganda sem autorização.\n\n"
+            "**8. RESPEITE A DECISÃO DA ADMINISTRAÇÃO** - Decisão dos ADMs é final. Reclamação só no privado.\n\n"
+            "**9. PROIBIDO CONTA FAKE / 2 CONTAS** - 1 pessoa = 1 conta no Discord + 1 conta no Call of War.\n\n"
+            "**10. MANTENHA SEU NICK IGUAL AO JOGO** - Seu nick no Discord tem que ser igual ao seu nick no Call of War.\n\n"
+            "**11. SEM POLÍTICA E RELIGIÃO NO CHAT** - Proibido briga por política, religião ou futebol. Aqui é só Call of War.\n\n"
+            "**12. CUMPRIMENTO DE PUNIÇÃO** - Aviso > Mute > Kick > Ban. Dependendo da gravidade, pode ir direto para o Ban.\n\n"
+            "Ao clicar em Li e Concordo, você aceita todas as regras. Quebra de regra = punição."
+        ),
+        color=0xFFD700
+    )
+    await interaction.response.send_message(embed=embed, view=RegrasView())
 
 @bot.tree.command(name="entrar-equipe", description="Entrar em uma equipe existente")
 @app_commands.describe(lider="Marque o líder da equipe")
