@@ -103,7 +103,7 @@ async def on_member_join(member):
         return
     try:
         embed = discord.Embed(
-            title="👋 Bem-vindo à Liga Supremo Comando!",
+            title="👋 Bem-vindo Comandante!",
             description="Antes de entrar, qual seu nick no Call of War? Clique no botão abaixo e digite seu nick. Seu nome aqui no Discord vai mudar automaticamente.",
             color=0xFFD700
         )
